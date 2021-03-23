@@ -34,6 +34,7 @@ export class CentrifugeLiveChannel<TMessage = any, TPublish = any> implements Li
   config?: LiveChannelConfig;
   subscription?: Centrifuge.Subscription;
   shutdownCallback?: () => void;
+  lastMsgTime = 0;
 
   constructor(id: string, addr: LiveChannelAddress) {
     this.id = id;
@@ -60,10 +61,16 @@ export class CentrifugeLiveChannel<TMessage = any, TPublish = any> implements Li
         try {
           const message = prepare(ctx.data);
           if (message) {
-            this.stream.next({
-              type: LiveChannelEventType.Message,
-              message,
-            });
+            const now = Date.now();
+            const elapsed = now - this.lastMsgTime;
+            if (elapsed > 100) {
+              // 10hz
+              this.stream.next({
+                type: LiveChannelEventType.Message,
+                message,
+              });
+              this.lastMsgTime = now;
+            }
           }
 
           // Clear any error messages
