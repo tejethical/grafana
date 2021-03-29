@@ -17,7 +17,7 @@ import (
 type Manager struct {
 	Cfg           *setting.Cfg          `inject:""`
 	RouteRegister routing.RouteRegister `inject:""`
-	SQLStore      *sqlstore.SQLStore    `inkect:""`
+	SQLStore      *sqlstore.SQLStore    `inject:""`
 	Log           log.Logger
 	*database.AccessControlStore
 }

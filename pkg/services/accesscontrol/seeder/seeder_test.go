@@ -8,12 +8,10 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/grafana/grafana/pkg/infra/log"
-	"github.com/grafana/grafana/pkg/registry"
 	"github.com/grafana/grafana/pkg/services/accesscontrol"
 	"github.com/grafana/grafana/pkg/services/accesscontrol/database"
 	"github.com/grafana/grafana/pkg/services/sqlstore"
 	"github.com/grafana/grafana/pkg/services/sqlstore/migrator"
-	"github.com/grafana/grafana/pkg/setting"
 )
 
 // accessControlStoreTestImpl is a test store implementation which additionally executes a database migrations
@@ -28,39 +26,13 @@ func (ac *accessControlStoreTestImpl) AddMigration(mg *migrator.Migrator) {
 func setupTestEnv(t testing.TB) *accessControlStoreTestImpl {
 	t.Helper()
 
-	cfg := setting.NewCfg()
-	store := overrideDatabaseInRegistry(t, cfg)
 	sqlStore := sqlstore.InitTestDB(t)
-	store.SQLStore = sqlStore
-
-	err := store.Init()
-	require.NoError(t, err)
-	return &store
-}
-
-func overrideDatabaseInRegistry(t testing.TB, cfg *setting.Cfg) accessControlStoreTestImpl {
-	t.Helper()
-
 	store := accessControlStoreTestImpl{
 		AccessControlStore: database.AccessControlStore{
-			SQLStore: nil,
+			SQLStore: sqlStore,
 		},
 	}
-
-	overrideServiceFunc := func(descriptor registry.Descriptor) (*registry.Descriptor, bool) {
-		if _, ok := descriptor.Instance.(*database.AccessControlStore); ok {
-			return &registry.Descriptor{
-				Name:         "Database",
-				Instance:     &store,
-				InitPriority: descriptor.InitPriority,
-			}, true
-		}
-		return nil, false
-	}
-
-	registry.RegisterOverride(overrideServiceFunc)
-
-	return store
+	return &store
 }
 
 func TestSeeder(t *testing.T) {
