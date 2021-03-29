@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/grafana/grafana/pkg/models"
-	"github.com/grafana/grafana/pkg/registry"
 	"github.com/grafana/grafana/pkg/services/accesscontrol"
 	"github.com/grafana/grafana/pkg/services/sqlstore"
 	"github.com/grafana/grafana/pkg/util"
@@ -17,15 +16,7 @@ import (
 var TimeNow = time.Now
 
 type AccessControlStore struct {
-	SQLStore *sqlstore.SQLStore `inject:""`
-}
-
-func init() {
-	registry.RegisterService(&AccessControlStore{})
-}
-
-func (ac *AccessControlStore) Init() error {
-	return nil
+	SQLStore *sqlstore.SQLStore
 }
 
 func (ac *AccessControlStore) GetRoles(ctx context.Context, orgID int64) ([]*accesscontrol.Role, error) {

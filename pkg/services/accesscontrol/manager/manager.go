@@ -8,6 +8,7 @@ import (
 	"github.com/grafana/grafana/pkg/registry"
 	"github.com/grafana/grafana/pkg/services/accesscontrol/database"
 	"github.com/grafana/grafana/pkg/services/accesscontrol/seeder"
+	"github.com/grafana/grafana/pkg/services/sqlstore"
 	"github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 	"github.com/grafana/grafana/pkg/setting"
 )
@@ -16,6 +17,7 @@ import (
 type Manager struct {
 	Cfg           *setting.Cfg          `inject:""`
 	RouteRegister routing.RouteRegister `inject:""`
+	SQLStore      *sqlstore.SQLStore    `inkect:""`
 	Log           log.Logger
 	*database.AccessControlStore
 }
@@ -26,6 +28,7 @@ func init() {
 
 // Init initializes the Manager.
 func (m *Manager) Init() error {
+	m.AccessControlStore = &database.AccessControlStore{SQLStore: m.SQLStore}
 	m.Log = log.New("accesscontrol")
 
 	seeder := seeder.NewSeeder(m, m.Log)
