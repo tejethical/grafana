@@ -21,9 +21,6 @@ var builtInRoles = []accesscontrol.RoleDTO{
 			},
 		},
 	},
-}
-
-var predefinedRoles = []accesscontrol.RoleDTO{
 	{
 		Name:    "roles:adminUsers:viewer",
 		Version: 1,
