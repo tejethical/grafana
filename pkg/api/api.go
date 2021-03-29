@@ -420,7 +420,7 @@ func (hs *HTTPServer) registerRoutes() {
 		adminRoute.Get("/ldap/status", routing.Wrap(hs.GetLDAPStatus))
 	}, reqGrafanaAdmin)
 
-	// Administrating users
+	// Administering users
 	r.Group("/api/admin/users", func(adminUserRoute routing.RouteRegister) {
 		const userIDScope = `users:{{ index . ":id" }}`
 		adminUserRoute.Post("/", authorize(reqGrafanaAdmin, "users:create"), bind(dtos.AdminCreateUserForm{}), routing.Wrap(hs.AdminCreateUser))
