@@ -27,7 +27,7 @@ func setupTestEnv(t testing.TB) *Manager {
 	ac := overrideAccessControlInRegistry(t, cfg)
 
 	sqlStore := sqlstore.InitTestDB(t)
-	ac.AccessControlStore.SQLStore = sqlStore
+	ac.SQLStore = sqlStore
 
 	err := ac.Init()
 	require.NoError(t, err)
