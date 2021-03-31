@@ -26,7 +26,11 @@ var builtInRoles = []accesscontrol.RoleDTO{
 		Version: 1,
 		Permissions: []accesscontrol.Permission{
 			{
-				Permission: "users.authtoken:list",
+				Permission: accesscontrol.ActionUsersAuthTokenList,
+				Scope:      "*",
+			},
+			{
+				Permission: accesscontrol.ActionUsersQuotasList,
 				Scope:      "*",
 			},
 		},
@@ -36,31 +40,47 @@ var builtInRoles = []accesscontrol.RoleDTO{
 		Version: 1,
 		Permissions: []accesscontrol.Permission{
 			{
-				Permission: "users.password.update",
+				Permission: accesscontrol.ActionUsersAuthTokenList,
 				Scope:      "*",
 			},
 			{
-				Permission: "users:delete",
+				Permission: accesscontrol.ActionUsersPasswordUpdate,
 				Scope:      "*",
 			},
 			{
-				Permission: "users:enable",
+				Permission: accesscontrol.ActionUsersCreate,
 				Scope:      "*",
 			},
 			{
-				Permission: "users:disable",
+				Permission: accesscontrol.ActionUsersDelete,
 				Scope:      "*",
 			},
 			{
-				Permission: "users.permissions.update",
+				Permission: accesscontrol.ActionUsersEnable,
 				Scope:      "*",
 			},
 			{
-				Permission: "users:logout",
+				Permission: accesscontrol.ActionUsersDisable,
 				Scope:      "*",
 			},
 			{
-				Permission: "users.authtoken:update",
+				Permission: accesscontrol.ActionUsersPermissionsUpdate,
+				Scope:      "*",
+			},
+			{
+				Permission: accesscontrol.ActionUsersLogout,
+				Scope:      "*",
+			},
+			{
+				Permission: accesscontrol.ActionUsersAuthTokenUpdate,
+				Scope:      "*",
+			},
+			{
+				Permission: accesscontrol.ActionUsersQuotasList,
+				Scope:      "*",
+			},
+			{
+				Permission: accesscontrol.ActionUsersQuotasUpdate,
 				Scope:      "*",
 			},
 		},

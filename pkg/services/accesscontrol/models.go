@@ -186,3 +186,18 @@ func (p RoleDTO) Role() Role {
 		Created:     p.Created,
 	}
 }
+
+const (
+	// Users admin actions
+	ActionUsersAuthTokenList     = "users.authtoken:list"
+	ActionUsersAuthTokenUpdate   = "users.authtoken:update"
+	ActionUsersPasswordUpdate    = "users.password.update"
+	ActionUsersDelete            = "users:delete"
+	ActionUsersCreate            = "users:create"
+	ActionUsersEnable            = "users:enable"
+	ActionUsersDisable           = "users:disable"
+	ActionUsersPermissionsUpdate = "users.permissions.update"
+	ActionUsersLogout            = "users:logout"
+	ActionUsersQuotasList        = "users.quotas:list"
+	ActionUsersQuotasUpdate      = "users.quotas:update"
+)

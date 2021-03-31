@@ -2,6 +2,7 @@
 package api
 
 import (
+	"github.com/grafana/grafana/pkg/services/accesscontrol"
 	"time"
 
 	"github.com/go-macaron/binding"
@@ -427,18 +428,18 @@ func (hs *HTTPServer) registerRoutes() {
 	// Administering users
 	r.Group("/api/admin/users", func(adminUserRoute routing.RouteRegister) {
 		const userIDScope = `users:{{ index . ":id" }}`
-		adminUserRoute.Post("/", authorize(reqGrafanaAdmin, "users:create"), bind(dtos.AdminCreateUserForm{}), routing.Wrap(hs.AdminCreateUser))
-		adminUserRoute.Put("/:id/password", authorize(reqGrafanaAdmin, "users.password:update", userIDScope), bind(dtos.AdminUpdateUserPasswordForm{}), routing.Wrap(AdminUpdateUserPassword))
-		adminUserRoute.Put("/:id/permissions", authorize(reqGrafanaAdmin, "users.permissions:update", userIDScope), bind(dtos.AdminUpdateUserPermissionsForm{}), routing.Wrap(hs.AdminUpdateUserPermissions))
-		adminUserRoute.Delete("/:id", authorize(reqGrafanaAdmin, "users:delete", userIDScope), routing.Wrap(AdminDeleteUser))
-		adminUserRoute.Post("/:id/disable", authorize(reqGrafanaAdmin, "users:disable", userIDScope), routing.Wrap(hs.AdminDisableUser))
-		adminUserRoute.Post("/:id/enable", authorize(reqGrafanaAdmin, "users:enable", userIDScope), routing.Wrap(AdminEnableUser))
-		adminUserRoute.Get("/:id/quotas", authorize(reqGrafanaAdmin, "users.quotas:list", userIDScope), routing.Wrap(GetUserQuotas))
-		adminUserRoute.Put("/:id/quotas/:target", authorize(reqGrafanaAdmin, "users.quotas:update", userIDScope), bind(models.UpdateUserQuotaCmd{}), routing.Wrap(UpdateUserQuota))
+		adminUserRoute.Post("/", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersCreate), bind(dtos.AdminCreateUserForm{}), routing.Wrap(hs.AdminCreateUser))
+		adminUserRoute.Put("/:id/password", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersPasswordUpdate, userIDScope), bind(dtos.AdminUpdateUserPasswordForm{}), routing.Wrap(AdminUpdateUserPassword))
+		adminUserRoute.Put("/:id/permissions", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersPermissionsUpdate, userIDScope), bind(dtos.AdminUpdateUserPermissionsForm{}), routing.Wrap(hs.AdminUpdateUserPermissions))
+		adminUserRoute.Delete("/:id", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersDelete, userIDScope), routing.Wrap(AdminDeleteUser))
+		adminUserRoute.Post("/:id/disable", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersDisable, userIDScope), routing.Wrap(hs.AdminDisableUser))
+		adminUserRoute.Post("/:id/enable", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersEnable, userIDScope), routing.Wrap(AdminEnableUser))
+		adminUserRoute.Get("/:id/quotas", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersQuotasList, userIDScope), routing.Wrap(GetUserQuotas))
+		adminUserRoute.Put("/:id/quotas/:target", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersQuotasUpdate, userIDScope), bind(models.UpdateUserQuotaCmd{}), routing.Wrap(UpdateUserQuota))
 
-		adminUserRoute.Post("/:id/logout", authorize(reqGrafanaAdmin, "users:logout", userIDScope), routing.Wrap(hs.AdminLogoutUser))
-		adminUserRoute.Get("/:id/auth-tokens", authorize(reqGrafanaAdmin, "users.authtoken:list", userIDScope), routing.Wrap(hs.AdminGetUserAuthTokens))
-		adminUserRoute.Post("/:id/revoke-auth-token", authorize(reqGrafanaAdmin, "users.authtoken:update", userIDScope), bind(models.RevokeAuthTokenCmd{}), routing.Wrap(hs.AdminRevokeUserAuthToken))
+		adminUserRoute.Post("/:id/logout", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersLogout, userIDScope), routing.Wrap(hs.AdminLogoutUser))
+		adminUserRoute.Get("/:id/auth-tokens", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersAuthTokenList, userIDScope), routing.Wrap(hs.AdminGetUserAuthTokens))
+		adminUserRoute.Post("/:id/revoke-auth-token", authorize(reqGrafanaAdmin, accesscontrol.ActionUsersAuthTokenUpdate, userIDScope), bind(models.RevokeAuthTokenCmd{}), routing.Wrap(hs.AdminRevokeUserAuthToken))
 	})
 
 	// rendering
