@@ -9,29 +9,29 @@ var builtInRoles = []accesscontrol.RoleDTO{
 		Permissions: []accesscontrol.Permission{
 			{
 				Permission: "users:read",
-				Scope:      "users:self",
+				Scope:      accesscontrol.ScopeUsersSelf,
 			},
 			{
 				Permission: "users.tokens:list",
-				Scope:      "users:self",
+				Scope:      accesscontrol.ScopeUsersSelf,
 			},
 			{
 				Permission: "users.teams:read",
-				Scope:      "users:self",
+				Scope:      accesscontrol.ScopeUsersSelf,
 			},
 		},
 	},
 	{
 		Name:    "roles:adminUsers:viewer",
-		Version: 1,
+		Version: 2,
 		Permissions: []accesscontrol.Permission{
 			{
 				Permission: accesscontrol.ActionUsersAuthTokenList,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersQuotasList,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 		},
 	},
@@ -41,47 +41,47 @@ var builtInRoles = []accesscontrol.RoleDTO{
 		Permissions: []accesscontrol.Permission{
 			{
 				Permission: accesscontrol.ActionUsersAuthTokenList,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersPasswordUpdate,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersCreate,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersDelete,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersEnable,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersDisable,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersPermissionsUpdate,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersLogout,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersAuthTokenUpdate,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersQuotasList,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 			{
 				Permission: accesscontrol.ActionUsersQuotasUpdate,
-				Scope:      "*",
+				Scope:      accesscontrol.ScopeUsersAll,
 			},
 		},
 	},

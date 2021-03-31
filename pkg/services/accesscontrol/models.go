@@ -188,7 +188,7 @@ func (p RoleDTO) Role() Role {
 }
 
 const (
-	// Users admin actions
+	// Permission actions
 	ActionUsersAuthTokenList     = "users.authtoken:list"
 	ActionUsersAuthTokenUpdate   = "users.authtoken:update"
 	ActionUsersPasswordUpdate    = "users.password.update"
@@ -200,4 +200,8 @@ const (
 	ActionUsersLogout            = "users:logout"
 	ActionUsersQuotasList        = "users.quotas:list"
 	ActionUsersQuotasUpdate      = "users.quotas:update"
+
+	// Global Scopes
+	ScopeUsersAll  = "users:*"
+	ScopeUsersSelf = "users:self"
 )
