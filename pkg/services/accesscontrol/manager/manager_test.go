@@ -38,12 +38,10 @@ func overrideAccessControlInRegistry(t testing.TB, cfg *setting.Cfg) Manager {
 	t.Helper()
 
 	ac := Manager{
-		Cfg:           cfg,
-		RouteRegister: routing.NewRouteRegister(),
-		Log:           log.New("accesscontrol-test"),
-		AccessControlStore: &database.AccessControlStore{
-			SQLStore: nil,
-		},
+		Cfg:                cfg,
+		RouteRegister:      routing.NewRouteRegister(),
+		Log:                log.New("accesscontrol-test"),
+		AccessControlStore: &database.AccessControlStore{},
 	}
 
 	overrideServiceFunc := func(descriptor registry.Descriptor) (*registry.Descriptor, bool) {

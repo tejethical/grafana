@@ -3,6 +3,7 @@ package database
 import (
 	"context"
 	"fmt"
+	"github.com/grafana/grafana/pkg/registry"
 	"strings"
 	"time"
 
@@ -15,8 +16,18 @@ import (
 // TimeNow makes it possible to test usage of time
 var TimeNow = time.Now
 
+// Due to the way we organize code, without having AccessControlStore as a service it is hard/not possible to run migrations when writing tests.
+// SQLStore is not injected directly to make dependency between AccessControlStore and Manager explicit.
 type AccessControlStore struct {
 	SQLStore *sqlstore.SQLStore
+}
+
+func init() {
+	registry.RegisterService(&AccessControlStore{})
+}
+
+func (ac *AccessControlStore) Init() error {
+	return nil
 }
 
 func (ac *AccessControlStore) GetRoles(ctx context.Context, orgID int64) ([]*accesscontrol.Role, error) {
