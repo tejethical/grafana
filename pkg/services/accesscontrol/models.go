@@ -189,8 +189,15 @@ func (p RoleDTO) Role() Role {
 
 const (
 	// Permission actions
-	ActionUsersAuthTokenList     = "users.authtoken:list"
-	ActionUsersAuthTokenUpdate   = "users.authtoken:update"
+
+	// We can ignore gosec G101 since this does not contain any credentials
+	// nolint:gosec
+	ActionUsersAuthTokenList = "users.authtoken:list"
+	// We can ignore gosec G101 since this does not contain any credentials
+	// nolint:gosec
+	ActionUsersAuthTokenUpdate = "users.authtoken:update"
+	// We can ignore gosec G101 since this does not contain any credentials
+	// nolint:gosec
 	ActionUsersPasswordUpdate    = "users.password.update"
 	ActionUsersDelete            = "users:delete"
 	ActionUsersCreate            = "users:create"
