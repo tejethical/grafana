@@ -19,7 +19,12 @@ export const AddLibraryPanelModal: React.FC<Props> = ({ isOpen = false, panel, i
   const { saveLibraryPanel } = usePanelSave();
 
   return (
-    <Modal title="Add this panel to the panel library" isOpen={isOpen} onDismiss={props.onDismiss}>
+    <Modal
+      title="Add this panel to the panel library"
+      isOpen={isOpen}
+      onDismiss={props.onDismiss}
+      contentClassName={styles.modalContent}
+    >
       <Field label="Library panel name">
         <Input name="name" value={panelTitle} onChange={(e) => setPanelTitle(e.currentTarget.value)} />
       </Field>
@@ -48,5 +53,8 @@ const getStyles = () => ({
   buttons: css`
     display: flex;
     gap: 10px;
+  `,
+  modalContent: css`
+    overflow: visible;
   `,
 });

@@ -32,6 +32,9 @@ export const SaveDashboardAsModal: React.FC<
           className={css`
             width: 500px;
           `}
+          contentClassName={css`
+            overflow: visible;
+          `}
         >
           <SaveDashboardAsForm
             dashboard={dashboard}

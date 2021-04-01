@@ -48,6 +48,7 @@ export const MoveToFolderModal: FC<Props> = ({ results, onMoveItems, isOpen, onD
   return isOpen ? (
     <Modal
       className={styles.modal}
+      contentClassName={styles.modalContent}
       title="Choose Dashboard Folder"
       icon="folder-plus"
       isOpen={isOpen}
@@ -82,6 +83,9 @@ const getStyles = stylesFactory((theme: GrafanaTheme) => {
     `,
     content: css`
       margin-bottom: ${theme.spacing.lg};
+    `,
+    modalContent: css`
+      overflow: visible;
     `,
   };
 });
