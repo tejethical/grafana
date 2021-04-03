@@ -27,6 +27,7 @@ import { GrafanaRouteComponentProps } from 'app/core/navigation/types';
 import { getTimeSrv } from '../services/TimeSrv';
 import { getKioskMode } from 'app/core/navigation/kiosk';
 import { UrlQueryValue } from '@grafana/data';
+import { CustomComponent } from '../components/CustomComponent/CustomInput';
 
 export interface DashboardPageRouteParams {
   uid?: string;
@@ -351,6 +352,7 @@ export class DashboardPage extends PureComponent<Props, State> {
               kioskMode={kioskMode}
               hideTimePicker={dashboard.timepicker.hidden}
             />
+            <CustomComponent tooltip="UST"></CustomComponent>
           </div>
         )}
 

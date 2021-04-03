@@ -6,6 +6,7 @@ COPY package.json yarn.lock ./
 COPY packages packages
 
 RUN apk --no-cache add git
+RUN yarn config set network-timeout 300000
 RUN yarn install --pure-lockfile --no-progress
 
 COPY tsconfig.json .eslintrc .editorconfig .browserslistrc .prettierrc.js ./
