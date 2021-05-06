@@ -352,7 +352,7 @@ export class DashboardPage extends PureComponent<Props, State> {
               kioskMode={kioskMode}
               hideTimePicker={dashboard.timepicker.hidden}
             />
-            <CustomComponent tooltip="UST"></CustomComponent>
+            <CustomComponent a={0} b={0}></CustomComponent>
           </div>
         )}
 

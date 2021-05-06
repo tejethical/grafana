@@ -1,24 +1,58 @@
-// Libraries
-import React, { FC, MouseEvent } from 'react';
-// Components
-import { IconName, IconType, IconSize } from '@grafana/ui';
+import React from 'react';
 
-interface Props {
-  icon?: IconName;
-  tooltip: string;
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
-  href?: string;
-  children?: React.ReactNode;
-  iconType?: IconType;
-  iconSize?: IconSize;
+export interface CustomInputProps {
+  a: number;
+  b: number;
 }
 
-export const CustomComponent: FC<Props> = ({}) => {
-  return (
-    <div className="custom-component-ust">
-      <input type="number" id="n1" name="n1" />
-      <input type="number" id="n2" name="n2" />
-      <button>Sum</button>
-    </div>
-  );
-};
+export class CustomComponent extends React.Component<CustomInputProps, any> {
+  constructor(props: CustomInputProps) {
+    super(props);
+
+    this.state = {
+      a: 0,
+      b: 0,
+    };
+  }
+
+  onVariableUpdated = () => {
+    this.forceUpdate();
+  };
+
+  handleChangeA = (ax: string) => {
+    console.log('a changed', ax);
+    this.setState({ a: ax });
+  };
+  handleChangeB = (bx: string) => {
+    console.log('a changed', bx);
+    this.setState({ b: bx });
+  };
+
+  calculateSum = () => {
+    var sum = Number(this.state.a) + Number(this.state.b);
+    alert('Sum is ' + sum);
+  };
+
+  render() {
+    return (
+      <div className="trc-component">
+        <input
+          value={this.state.a}
+          onChange={(e) => this.handleChangeA(e.target.value)}
+          type="number"
+          id="n1"
+          name="n1"
+        />
+        <input
+          value={this.state.b}
+          onChange={(e) => this.handleChangeB(e.target.value)}
+          type="number"
+          id="n2"
+          name="n2"
+        />
+        <button onClick={(e) => this.calculateSum()}>Sum</button>
+        {/* <button onClick={() => alert('Sum is ' + (this.state.a + this.state.b))}>Sum</button> */}
+      </div>
+    );
+  }
+}
